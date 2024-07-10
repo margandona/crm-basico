@@ -38,6 +38,7 @@ $(document).ready(function() {
       $("#loginForm")[0].reset();
       $("#loginModal").modal('hide');
       $(".protected").show();
+      loadProtectedData();
     } catch (error) {
       console.error("Error iniciando sesión: ", error);
     }
@@ -54,6 +55,7 @@ $(document).ready(function() {
       $("#registerForm")[0].reset();
       $("#registerModal").modal('hide');
       $(".protected").show();
+      loadProtectedData();
     } catch (error) {
       console.error("Error registrándose: ", error);
     }
@@ -73,6 +75,7 @@ $(document).ready(function() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       $(".protected").show();
+      loadProtectedData();
     } else {
       $(".protected").hide();
     }
@@ -86,6 +89,7 @@ $(document).ready(function() {
       alert("Inicio de sesión con Google exitoso.");
       $(".protected").show();
       $("#loginModal").modal('hide');
+      loadProtectedData();
     } catch (error) {
       console.error("Error iniciando sesión con Google: ", error);
     }
@@ -103,4 +107,10 @@ $(document).ready(function() {
   $("#showOrdersTableBtn").click(function() {
     loadOrders();
   });
+
+  function loadProtectedData() {
+    loadClients();
+    loadProducts();
+    loadOrders();
+  }
 });
