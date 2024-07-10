@@ -1,6 +1,5 @@
-// firebase-config.js
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js';
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js';
 import { getFirestore, collection, addDoc, getDocs, doc, setDoc, updateDoc, deleteDoc, getDoc, query, where } from 'https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -17,4 +16,4 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-export { db, auth, collection, addDoc, getDocs, doc, setDoc, updateDoc, deleteDoc, getDoc, query, where, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword };
+export { db, auth, collection, addDoc, getDocs, doc, setDoc, updateDoc, deleteDoc, getDoc, query, where, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, onAuthStateChanged, signOut };
