@@ -81,9 +81,9 @@ async function populateClientOptions() {
   try {
     const querySnapshot = await getDocs(collection(db, "clientes"));
     let options = '<option value="">Seleccione un cliente</option>';
-    querySnapshot.forEach((doc) => {
-      const client = doc.data();
-      options += `<option value="${doc.id}">${client.nombre}</option>`;
+    querySnapshot.forEach((docSnap) => {
+      const client = docSnap.data();
+      options += `<option value="${docSnap.id}">${client.nombre}</option>`;
     });
     $("#orderClient").html(options);
   } catch (error) {
@@ -95,9 +95,9 @@ async function populateProductOptions() {
   try {
     const querySnapshot = await getDocs(collection(db, "productos"));
     let options = '<option value="">Seleccione un producto</option>';
-    querySnapshot.forEach((doc) => {
-      const product = doc.data();
-      options += `<option value="${doc.id}">${product.nombre}</option>`;
+    querySnapshot.forEach((docSnap) => {
+      const product = docSnap.data();
+      options += `<option value="${docSnap.id}">${product.nombre}</option>`;
     });
     $("#orderProduct").html(options);
   } catch (error) {
@@ -124,8 +124,8 @@ export async function loadOrders() {
   try {
     const querySnapshot = await getDocs(collection(db, "pedidos"));
     let tableContent = '';
-    for (const doc of querySnapshot.docs) {
-      const order = doc.data();
+    for (const docSnap of querySnapshot.docs) {
+      const order = docSnap.data();
       const clientDoc = await getDoc(doc(db, "clientes", order.clienteId));
       const productDoc = await getDoc(doc(db, "productos", order.productoId));
       if (clientDoc.exists() && productDoc.exists()) {
@@ -138,8 +138,8 @@ export async function loadOrders() {
             <td>${order.cantidad}</td>
             <td>${new Date(order.fecha).toLocaleString()}</td>
             <td>
-              <button class="btn btn-sm btn-warning edit-order" data-id="${doc.id}">Editar</button>
-              <button class="btn btn-sm btn-danger delete-order" data-id="${doc.id}">Eliminar</button>
+              <button class="btn btn-sm btn-warning edit-order" data-id="${docSnap.id}">Editar</button>
+              <button class="btn btn-sm btn-danger delete-order" data-id="${docSnap.id}">Eliminar</button>
             </td>
           </tr>`;
       }

@@ -85,6 +85,7 @@ $(document).ready(function() {
       await signInWithPopup(auth, provider);
       alert("Inicio de sesión con Google exitoso.");
       $(".protected").show();
+      $("#loginModal").modal('hide');
     } catch (error) {
       console.error("Error iniciando sesión con Google: ", error);
     }
