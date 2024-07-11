@@ -1,7 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f8f9fa;
-  color: #333;
 }
 
 .navbar {
@@ -13,17 +12,13 @@ body {
 }
 
 .btn-primary {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-primary:hover {
   background-color: #5a6268;
   border-color: #545b62;
 }
 
-.table {
-  background-color: #fff;
+.btn-primary:hover {
+  background-color: #545b62;
+  border-color: #4e555b;
 }
 
 .table thead th {
@@ -41,8 +36,8 @@ body {
 }
 
 .modal-footer .btn-primary {
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #5a6268;
+  border-color: #545b62;
 }
 
 .form-control {
@@ -51,32 +46,6 @@ body {
 }
 
 .form-control:focus {
-  border-color: #6c757d;
-  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
-}
-
-.tooltip-inner {
-  background-color: #6c757d;
-  color: #fff;
-  font-size: 0.875rem;
-}
-
-.tooltip.bs-tooltip-top .arrow::before {
-  border-top-color: #6c757d;
-}
-
-.tooltip.bs-tooltip-bottom .arrow::before {
-  border-bottom-color: #6c757d;
-}
-
-.tooltip.bs-tooltip-left .arrow::before {
-  border-left-color: #6c757d;
-}
-
-.tooltip.bs-tooltip-right .arrow::before {
-  border-right-color: #6c757d;
-}
-
-button:disabled {
-  cursor: not-allowed;
+  border-color: #5a6268;
+  box-shadow: 0 0 0 0.2rem rgba(90, 98, 104, 0.25);
 }
