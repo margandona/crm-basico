@@ -70,25 +70,28 @@ $(document).ready(function() {
   });
 });
 
-export async function loadClients() {
+export async function loadClients(searchQuery = "") {
   try {
     const querySnapshot = await getDocs(collection(db, "clientes"));
     let tableContent = '';
     querySnapshot.forEach((doc) => {
       const client = doc.data();
-      tableContent += `
-        <tr>
-          <td>${client.nombre}</td>
-          <td>${client.email}</td>
-          <td>${client.telefono}</td>
-          <td>${client.direccion}</td>
-          <td>
-            <button class="btn btn-sm btn-warning edit-client" data-id="${doc.id}">Editar</button>
-            <button class="btn btn-sm btn-danger delete-client" data-id="${doc.id}">Eliminar</button>
-          </td>
-        </tr>`;
+      if (client.nombre.toLowerCase().includes(searchQuery) || client.email.toLowerCase().includes(searchQuery)) {
+        tableContent += `
+          <tr>
+            <td>${client.nombre}</td>
+            <td>${client.email}</td>
+            <td>${client.telefono}</td>
+            <td>${client.direccion}</td>
+            <td>
+              <button class="btn btn-sm btn-warning edit-client" data-id="${doc.id}" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm btn-danger delete-client" data-id="${doc.id}" data-toggle="tooltip" title="Eliminar"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>`;
+      }
     });
     $("#clientTableBody").html(tableContent);
+    $('[data-toggle="tooltip"]').tooltip();
   } catch (error) {
     console.error("Error cargando clientes: ", error);
   }

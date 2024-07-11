@@ -120,7 +120,7 @@ async function updateProductStock(productId, quantityChange) {
   }
 }
 
-export async function loadOrders() {
+export async function loadOrders(searchQuery = "") {
   try {
     const querySnapshot = await getDocs(collection(db, "pedidos"));
     let tableContent = '';
@@ -131,20 +131,23 @@ export async function loadOrders() {
       if (clientDoc.exists() && productDoc.exists()) {
         const client = clientDoc.data();
         const product = productDoc.data();
-        tableContent += `
-          <tr>
-            <td>${client.nombre}</td>
-            <td>${product.nombre}</td>
-            <td>${order.cantidad}</td>
-            <td>${new Date(order.fecha).toLocaleString()}</td>
-            <td>
-              <button class="btn btn-sm btn-warning edit-order" data-id="${docSnap.id}">Editar</button>
-              <button class="btn btn-sm btn-danger delete-order" data-id="${docSnap.id}">Eliminar</button>
-            </td>
-          </tr>`;
+        if (client.nombre.toLowerCase().includes(searchQuery) || product.nombre.toLowerCase().includes(searchQuery)) {
+          tableContent += `
+            <tr>
+              <td>${client.nombre}</td>
+              <td>${product.nombre}</td>
+              <td>${order.cantidad}</td>
+              <td>${new Date(order.fecha).toLocaleString()}</td>
+              <td>
+                <button class="btn btn-sm btn-warning edit-order" data-id="${docSnap.id}" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-sm btn-danger delete-order" data-id="${docSnap.id}" data-toggle="tooltip" title="Eliminar"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>`;
+        }
       }
     }
     $("#orderTableBody").html(tableContent);
+    $('[data-toggle="tooltip"]').tooltip();
   } catch (error) {
     console.error("Error cargando pedidos: ", error);
   }

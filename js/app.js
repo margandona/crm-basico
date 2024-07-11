@@ -82,13 +82,13 @@ $(document).ready(function() {
   });
 
   // Inicio de sesión con Google
-  $("#googleLoginBtn").click(async function() {
+  $("#googleLoginBtn, #googleRegisterBtn").click(async function() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
       alert("Inicio de sesión con Google exitoso.");
       $(".protected").show();
-      $("#loginModal").modal('hide');
+      $(".modal").modal('hide');
       loadProtectedData();
     } catch (error) {
       console.error("Error iniciando sesión con Google: ", error);
@@ -113,4 +113,20 @@ $(document).ready(function() {
     loadProducts();
     loadOrders();
   }
+
+  // Buscadores con AJAX
+  $("#searchClients").on("input", function() {
+    const searchQuery = $(this).val().toLowerCase();
+    loadClients(searchQuery);
+  });
+
+  $("#searchProducts").on("input", function() {
+    const searchQuery = $(this).val().toLowerCase();
+    loadProducts(searchQuery);
+  });
+
+  $("#searchOrders").on("input", function() {
+    const searchQuery = $(this).val().toLowerCase();
+    loadOrders(searchQuery);
+  });
 });

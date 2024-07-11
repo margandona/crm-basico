@@ -73,26 +73,29 @@ $(document).ready(function() {
   });
 });
 
-export async function loadProducts() {
+export async function loadProducts(searchQuery = "") {
   try {
     const querySnapshot = await getDocs(collection(db, "productos"));
     let tableContent = '';
     querySnapshot.forEach((doc) => {
       const product = doc.data();
-      tableContent += `
-        <tr>
-          <td>${product.nombre}</td>
-          <td>${product.descripcion}</td>
-          <td>${product.precio}</td>
-          <td>${product.sku}</td>
-          <td>${product.stock}</td>
-          <td>
-            <button class="btn btn-sm btn-warning edit-product" data-id="${doc.id}">Editar</button>
-            <button class="btn btn-sm btn-danger delete-product" data-id="${doc.id}">Eliminar</button>
-          </td>
-        </tr>`;
+      if (product.nombre.toLowerCase().includes(searchQuery) || product.descripcion.toLowerCase().includes(searchQuery)) {
+        tableContent += `
+          <tr>
+            <td>${product.nombre}</td>
+            <td>${product.descripcion}</td>
+            <td>${product.precio}</td>
+            <td>${product.sku}</td>
+            <td>${product.stock}</td>
+            <td>
+              <button class="btn btn-sm btn-warning edit-product" data-id="${doc.id}" data-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm btn-danger delete-product" data-id="${doc.id}" data-toggle="tooltip" title="Eliminar"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>`;
+      }
     });
     $("#productTableBody").html(tableContent);
+    $('[data-toggle="tooltip"]').tooltip();
   } catch (error) {
     console.error("Error cargando productos: ", error);
   }
